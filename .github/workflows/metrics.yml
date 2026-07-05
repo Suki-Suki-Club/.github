@@ -1,0 +1,32 @@
+name: Metrics
+
+on:
+  schedule:
+    - cron: "0 18 * * *" # JST 03:00
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/metrics.yml"]
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          # METRICS_TOKEN(classic PAT, public_repo + read:org)を推奨。
+          # 未設定の間は GITHUB_TOKEN でフォールバック(取得できる情報が一部制限される)
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          user: Suki-Suki-Club
+          filename: metrics.svg
+          template: classic
+          base: header, repositories
+          config_timezone: Asia/Tokyo
+          plugin_languages: yes
+          plugin_languages_limit: 8
+          plugin_languages_colors: "#35b6ea, #ff5fa2, #fad764, #1c96cf, #253a63"
+          plugin_activity: yes
+          plugin_activity_limit: 10
+          plugin_activity_days: 30
