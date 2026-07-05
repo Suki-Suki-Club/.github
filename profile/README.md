@@ -49,14 +49,6 @@
 
 </div>
 
-## 📊 アクティビティ
-
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/metrics.svg" alt="Organization Metrics" />
-
-</div>
-
 ---
 
 <div align="center">
