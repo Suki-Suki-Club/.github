@@ -53,7 +53,7 @@
 
 <div align="center">
 
-🩷🩵💛❤️💜🧡💚💙🌸🤍💗
+<img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1021.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1022.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1023.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1031.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1032.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1033.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1041.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1042.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1043.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1051.png" width="36" alt="" /><img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/assets/icons/1052.png" width="36" alt="" />
 
 *ラブライブ！蓮ノ空女学院スクールアイドルクラブを応援しています*
 
