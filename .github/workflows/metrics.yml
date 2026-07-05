@@ -9,59 +9,90 @@ on:
     paths: [".github/workflows/metrics.yml"]
 
 jobs:
-  metrics:
+  # 公開リポジトリを動的に列挙(.github 自身とアーカイブ済みは除外)
+  list-repos:
+    runs-on: ubuntu-latest
+    outputs:
+      repos: ${{ steps.list.outputs.repos }}
+    steps:
+      - id: list
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          repos=$(gh api orgs/Suki-Suki-Club/repos --paginate |
+            jq -c '[.[] | select(.private == false and .archived == false and .name != ".github") | .name] | sort
+                   | (map(select(. == "sukisuki-club-portal")) + map(select(. != "sukisuki-club-portal")))')
+          echo "repos=$repos" >> "$GITHUB_OUTPUT"
+          echo "Found: $repos"
+
+  # リポジトリごとにカードSVGを生成(逐次実行でコミット競合を回避)
+  cards:
+    needs: list-repos
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    strategy:
+      max-parallel: 1
+      matrix:
+        repo: ${{ fromJson(needs.list-repos.outputs.repos) }}
     steps:
-      - name: Repository card - sukisuki-club-portal
-        uses: lowlighter/metrics@latest
+      - uses: lowlighter/metrics@latest
         with:
           # METRICS_TOKEN(classic PAT, public_repo + read:org)を推奨。
           # 未設定の間は GITHUB_TOKEN でフォールバック(取得できる情報が一部制限される)
           token: ${{ secrets.METRICS_TOKEN || github.token }}
           user: Suki-Suki-Club
-          repo: sukisuki-club-portal
+          repo: ${{ matrix.repo }}
           template: repository
-          filename: repo-sukisuki-club-portal.svg
+          filename: repo-${{ matrix.repo }}.svg
           config_timezone: Asia/Tokyo
 
-      - name: Repository card - link-like-essentials-mypick
-        uses: lowlighter/metrics@latest
+  # 削除されたリポジトリのSVGを掃除し、READMEのカード一覧をマーカー区間で再生成
+  sync-readme:
+    needs: [list-repos, cards]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          user: Suki-Suki-Club
-          repo: link-like-essentials-mypick
-          template: repository
-          filename: repo-link-like-essentials-mypick.svg
-          config_timezone: Asia/Tokyo
+          ref: main
+      - env:
+          REPOS: ${{ needs.list-repos.outputs.repos }}
+        run: |
+          shopt -s nullglob
+          for f in repo-*.svg; do
+            name="${f#repo-}"; name="${name%.svg}"
+            if ! jq -e --arg n "$name" 'index($n) != null' <<<"$REPOS" >/dev/null; then
+              git rm -q "$f"
+            fi
+          done
 
-      - name: Repository card - link-like-essentials-frontend
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          user: Suki-Suki-Club
-          repo: link-like-essentials-frontend
-          template: repository
-          filename: repo-link-like-essentials-frontend.svg
-          config_timezone: Asia/Tokyo
+          {
+            for r in $(jq -r '.[]' <<<"$REPOS"); do
+              echo "<a href=\"https://github.com/Suki-Suki-Club/$r\">"
+              echo "  <img src=\"https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-$r.svg\" alt=\"$r\" />"
+              echo "</a>"
+            done
+          } > /tmp/cards-block.txt
 
-      - name: Repository card - link-like-essentials-backend
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          user: Suki-Suki-Club
-          repo: link-like-essentials-backend
-          template: repository
-          filename: repo-link-like-essentials-backend.svg
-          config_timezone: Asia/Tokyo
+          awk '
+            /<!-- repo-cards:start -->/ {
+              print
+              while ((getline line < "/tmp/cards-block.txt") > 0) print line
+              skip = 1; next
+            }
+            /<!-- repo-cards:end -->/ { skip = 0 }
+            !skip { print }
+          ' profile/README.md > /tmp/README.md && mv /tmp/README.md profile/README.md
 
-      - name: Repository card - link-like-essentials-functions
-        uses: lowlighter/metrics@latest
-        with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          user: Suki-Suki-Club
-          repo: link-like-essentials-functions
-          template: repository
-          filename: repo-link-like-essentials-functions.svg
-          config_timezone: Asia/Tokyo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: リポジトリカードとREADMEを同期 [skip ci]"
+            git pull --rebase
+            git push
+          else
+            echo "No changes"
+          fi
