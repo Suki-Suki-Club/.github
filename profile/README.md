@@ -30,21 +30,21 @@
 <div align="center">
 
 <a href="https://github.com/Suki-Suki-Club/sukisuki-club-portal">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Suki-Suki-Club&repo=sukisuki-club-portal&title_color=1c96cf&icon_color=35b6ea&text_color=253a63&bg_color=ffffff&border_color=dbeefb" alt="sukisuki-club-portal" />
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-sukisuki-club-portal.svg" alt="sukisuki-club-portal" />
 </a>
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-mypick">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Suki-Suki-Club&repo=link-like-essentials-mypick&title_color=1c96cf&icon_color=35b6ea&text_color=253a63&bg_color=ffffff&border_color=dbeefb" alt="link-like-essentials-mypick" />
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-mypick.svg" alt="link-like-essentials-mypick" />
 </a>
 
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-frontend">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Suki-Suki-Club&repo=link-like-essentials-frontend&title_color=1c96cf&icon_color=35b6ea&text_color=253a63&bg_color=ffffff&border_color=dbeefb" alt="link-like-essentials-frontend" />
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-frontend.svg" alt="link-like-essentials-frontend" />
 </a>
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-backend">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Suki-Suki-Club&repo=link-like-essentials-backend&title_color=1c96cf&icon_color=35b6ea&text_color=253a63&bg_color=ffffff&border_color=dbeefb" alt="link-like-essentials-backend" />
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-backend.svg" alt="link-like-essentials-backend" />
 </a>
 
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-functions">
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=Suki-Suki-Club&repo=link-like-essentials-functions&title_color=1c96cf&icon_color=35b6ea&text_color=253a63&bg_color=ffffff&border_color=dbeefb" alt="link-like-essentials-functions" />
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-functions.svg" alt="link-like-essentials-functions" />
 </a>
 
 </div>
