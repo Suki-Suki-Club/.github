@@ -45,6 +45,15 @@
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-mypick">
   <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-mypick.svg" alt="link-like-essentials-mypick" />
 </a>
+<a href="https://github.com/Suki-Suki-Club/link-like-setlist-maker-backend">
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-setlist-maker-backend.svg" alt="link-like-setlist-maker-backend" />
+</a>
+<a href="https://github.com/Suki-Suki-Club/link-like-setlist-maker-frontend">
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-setlist-maker-frontend.svg" alt="link-like-setlist-maker-frontend" />
+</a>
+<a href="https://github.com/Suki-Suki-Club/link-like-ui">
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-ui.svg" alt="link-like-ui" />
+</a>
 <!-- repo-cards:end -->
 
 </div>
