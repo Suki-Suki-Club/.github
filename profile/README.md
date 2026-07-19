@@ -33,6 +33,9 @@
 <a href="https://github.com/Suki-Suki-Club/sukisuki-club-portal">
   <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-sukisuki-club-portal.svg" alt="sukisuki-club-portal" />
 </a>
+<a href="https://github.com/Suki-Suki-Club/dream-believers-intro-quiz">
+  <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-dream-believers-intro-quiz.svg" alt="dream-believers-intro-quiz" />
+</a>
 <a href="https://github.com/Suki-Suki-Club/link-like-essentials-backend">
   <img src="https://raw.githubusercontent.com/Suki-Suki-Club/.github/main/repo-link-like-essentials-backend.svg" alt="link-like-essentials-backend" />
 </a>
