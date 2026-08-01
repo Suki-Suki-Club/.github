@@ -15,6 +15,20 @@ jobs:
     outputs:
       repos: ${{ steps.list.outputs.repos }}
     steps:
+      # GITHUB_TOKEN は .github リポジトリだけにスコープされたインストールトークンで、
+      # 他リポジトリの stargazers / watchers / issues などのコネクションを GraphQL で
+      # 読めない("Resource not accessible by integration")。これらのフィールドは
+      # スキーマ上 non-null のため、1 つ拒否されるだけで repository ノード全体が null
+      # になり metrics が失敗する。したがって METRICS_TOKEN は必須。
+      - name: METRICS_TOKEN の存在確認
+        env:
+          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+        run: |
+          if [ -z "$METRICS_TOKEN" ]; then
+            echo "::error::METRICS_TOKEN が未設定です。public_repo + read:org スコープの classic PAT を作成し、Suki-Suki-Club/.github の Actions secret として METRICS_TOKEN に登録してください。GITHUB_TOKEN では他リポジトリのカードを生成できません。"
+            exit 1
+          fi
+
       - id: list
         env:
           GH_TOKEN: ${{ github.token }}
@@ -38,14 +52,17 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          # METRICS_TOKEN(classic PAT, public_repo + read:org)を推奨。
-          # 未設定の間は GITHUB_TOKEN でフォールバック(取得できる情報が一部制限される)
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          # METRICS_TOKEN(classic PAT, public_repo + read:org)が必須。
+          # GITHUB_TOKEN へのフォールバックは 3 回 × 5 分のリトライを空回りさせるだけなので行わない
+          token: ${{ secrets.METRICS_TOKEN }}
           user: Suki-Suki-Club
           repo: ${{ matrix.repo }}
           template: repository
           filename: repo-${{ matrix.repo }}.svg
           config_timezone: Asia/Tokyo
+          # 既定は 3 回 × 300 秒。恒久的な権限エラーで 17 分待たされるのを避ける
+          retries: 2
+          retries_delay: 60
 
   # 削除されたリポジトリのSVGを掃除し、READMEのカード一覧をマーカー区間で再生成
   sync-readme:
